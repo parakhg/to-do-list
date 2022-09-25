@@ -1,0 +1,25 @@
+<div class="container">
+    <mat-card *ngFor="let task of taskList" class="task">
+        <span class="card-container-left" [ngClass]="{'line-through': task.completed}">{{task.name}}</span>
+        <span class="card-container-right">
+            <button *ngIf="task.completed else uncomplete" mat-icon-button color="primary" aria-label="Mark as uncomplete" class="ml-10" (click)="updateTask(task, false)"
+                    matTooltip="Mark as uncomplete">
+                    <mat-icon>check_circle</mat-icon>
+                </button>
+            <ng-template #uncomplete>
+                <button mat-icon-button color="primary" aria-label="Mark as complete" class="ml-10" (click)="updateTask(task, true)"
+                    matTooltip="Mark as complete">
+                    <mat-icon>check_circle_outline</mat-icon>
+                </button>
+            </ng-template>
+            <button mat-icon-button color="primary" aria-label="Edit task" class="" (click)="openEditTaskDialog(task)"
+                matTooltip="Edit task" [disabled]="task.completed">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" aria-label="Delete task" class="ml-10" (click)="deleteTask(task)"
+                matTooltip="Delete task" [disabled]="task.completed">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </span>
+    </mat-card>
+</div>

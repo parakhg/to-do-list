@@ -23,4 +23,24 @@ export class ToDoListService {
   deleteList(listId) {
     return this.http.delete('/api/lists/' + listId);
   }
+
+  getAllTasks() {
+    return this.http.get('/api/tasks');
+  }
+
+  getTasksByListId(listId) {
+    return this.http.get('/api/lists/' + listId + '/tasks');
+  }
+
+  createTask(listId, task) {
+    return this.http.post('/api/lists/' + listId + '/tasks', task);
+  }
+
+  updateTask(listId, taskId, task) {
+    return this.http.put('/api/lists/' + listId + '/tasks/' + taskId, task);
+  }
+
+  deleteTask(listId, taskId) {
+    return this.http.delete('/api/lists/' + listId + '/tasks/' + taskId);
+  }
 }

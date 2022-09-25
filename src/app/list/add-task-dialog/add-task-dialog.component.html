@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>New {{data.type}}</h1>
+<div mat-dialog-content>
+    <mat-form-field class="to-do-list" appearance="fill">
+        <mat-label>Select a to-do list</mat-label>
+        <mat-select [(value)]="selectedList" (selectionChange)="onListChange($event.source.value)">
+            <mat-option [value]="list.name" *ngFor="let list of data.todoLists">{{ list.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Enter {{data.type}} Name</mat-label>
+        <input matInput [(ngModel)]="data.value">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="data.action === 'add' ? createTask() : updateTask()">{{ data.action ===
+        'add' ? 'Add' : 'Save'}}</button>
+</div>

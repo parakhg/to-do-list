@@ -1,0 +1,18 @@
+.task {
+    display: block;
+    width: 30%;
+    margin: 0 auto 20px;
+    height: 40px;
+}
+.card-container-left { display: inline; }
+.card-container-right {
+    display: inline;
+    float: right;
+}
+.ml-10 { margin-left: 10px; }
+.container {
+    width: 100%;
+    display: block;
+    margin-top: 40px;
+}
+.line-through { text-decoration: line-through; }
