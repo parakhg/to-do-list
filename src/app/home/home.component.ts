@@ -1,6 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToDoListService } from '../to-do-list.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddListDialogComponent } from './add-list-dialog/add-list-dialog.component';
+import { AppSnackBarComponent } from './snack-bar.component';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +15,8 @@ export class HomeComponent implements OnInit {
   todoLists: any = [];
   selectedList: any;
   constructor(private toDoService: ToDoListService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getToDoLists();
@@ -30,7 +34,7 @@ export class HomeComponent implements OnInit {
 
   openAddEditDialog(action) {
     const listId = this.todoLists.filter(list => list.name === this.selectedList)[0].id;
-    const dialogRef = this.dialog.open(AddDialog, {
+    const dialogRef = this.dialog.open(AddListDialogComponent, {
       width: '400px',
       data: {
         action: action,
@@ -48,48 +52,18 @@ export class HomeComponent implements OnInit {
   deleteList() {
     const listId = this.todoLists.filter(list => list.name === this.selectedList)[0].id;
     this.toDoService.deleteList(listId).subscribe((resp) => {
-      console.log("Deleted successfully ", resp);
+      this.openSnackBar('List deleted successfully');
       this.getToDoLists();
     },
       err => {
         console.log(err);
       });
   }
-}
 
-@Component({
-  selector: 'add-dialog',
-  templateUrl: './add-dialog.html',
-  styleUrls: ['./add-dialog.css']
-})
-export class AddDialog {
-  constructor(public dialogRef: MatDialogRef<AddDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private toDoService: ToDoListService) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  createList() {
-    const payload = { name: this.data.value };
-    this.toDoService.createToDoList(payload).subscribe(resp => {
-      console.log("List created successfully ", resp);
-      this.dialogRef.close('Success');
-    },
-      err => {
-        console.log(err);
-      });
-  }
-
-  updateList() {
-    const payload = { name: this.data.value };
-    this.toDoService.updateList(this.data.listId, payload).subscribe(resp => {
-      console.log("List updated successfully ", resp);
-      this.dialogRef.close('Success');
-    },
-      err => {
-        console.log(err);
-      });
+  openSnackBar(message) {
+    this._snackBar.openFromComponent(AppSnackBarComponent, {
+      data: message,
+      duration: 3000,
+    });
   }
 }
