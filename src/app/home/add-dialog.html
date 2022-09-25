@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>New {{data.type}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Enter {{data.type}} Name</mat-label>
+    <input matInput [(ngModel)]="data.value">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button cdkFocusInitial (click)="data.action === 'add' ? createList() : updateList()">{{ data.action === 'add' ? 'Add' : 'Edit'}}</button>
+</div>

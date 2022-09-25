@@ -1,0 +1,13 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.to-do-list {
+    width: 30%;
+    margin-top: 20px;
+}
+.add-new-list {
+    margin-top: 24px;
+    margin-left: 10px;
+}

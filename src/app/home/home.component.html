@@ -1,0 +1,20 @@
+<div class="container">
+    <mat-form-field class="to-do-list" appearance="fill">
+        <mat-label>Choose an option</mat-label>
+        <mat-select [(value)]="selectedList">
+          <mat-option [value]="list.name" *ngFor="let list of todoLists">{{ list.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" aria-label="Add a new list"
+        class="add-new-list" (click)="openAddEditDialog('add')" matTooltip="Add new list">
+        <mat-icon>add</mat-icon>
+    </button>
+    <button mat-mini-fab color="primary" aria-label="Edit selected list"
+        class="add-new-list" (click)="openAddEditDialog('edit')" matTooltip="Edit selected list">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-mini-fab color="primary" aria-label="Delete selected list"
+        class="add-new-list" (click)="deleteList()" matTooltip="Delete selected list">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>
