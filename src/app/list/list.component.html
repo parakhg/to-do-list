@@ -22,4 +22,5 @@
         <button mat-menu-item (click)="openAddTaskDialog()" matTooltip="Add new task">Add new task</button>
     </mat-menu>
 </div>
+<p class="container see-all-tasks" (click)="seeAllTasks()">See all tasks</p>
 <app-task *ngIf="listId" [listId]="listId" [todoLists]="todoLists"></app-task>

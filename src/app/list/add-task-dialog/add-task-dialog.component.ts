@@ -16,8 +16,11 @@ export class AddTaskDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toDoService: ToDoListService,
     private _snackBar: MatSnackBar) {
-    this.selectedList = this.data.todoLists[0].name;
-    this.listId = this.data.todoLists.filter(list => list.name === this.selectedList)[0].id;
+      if(this.data.action === 'add') {
+        this.selectedList = this.data.todoLists[0].name;
+        this.listId = this.data.todoLists.filter(list => list.name === this.selectedList)[0].id;
+      }
+    
   }
 
   onNoClick(): void {
@@ -36,8 +39,8 @@ export class AddTaskDialogComponent {
   }
 
   updateTask() {
-    const payload = { name: this.data.value, completed: this.data.task.completed, listId: this.listId };
-    this.toDoService.updateTask(this.listId, this.data.task.id, payload).subscribe(() => {
+    const payload = { name: this.data.value, completed: this.data.task.completed, listId: this.data.task.list_id };
+    this.toDoService.updateTask(this.data.task.list_id, this.data.task.id, payload).subscribe(() => {
       this.openSnackBar('Task updated successfully');
       this.dialogRef.close('Success');
     },

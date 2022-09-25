@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { TasksComponent } from './list/tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatMenuModule } from '@angular/material/menu';
     AddListDialogComponent,
     AppSnackBarComponent,
     TaskComponent,
-    AddTaskDialogComponent
+    AddTaskDialogComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,

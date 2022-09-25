@@ -1,0 +1,9 @@
+.see-all-tasks {
+    cursor: pointer;
+    color: #5e33bf;
+}
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

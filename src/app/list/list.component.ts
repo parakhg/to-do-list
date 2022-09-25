@@ -6,6 +6,7 @@ import { AddListDialogComponent } from './add-list-dialog/add-list-dialog.compon
 import { AppSnackBarComponent } from './snack-bar.component';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 import { TaskComponent } from './task/task.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -17,10 +18,10 @@ export class ListComponent implements OnInit {
   todoLists: any = [];
   selectedList: any;
   listId: number;
-  // @ViewChild('taskComp', { static: false }) public taskComp: TaskComponent;
   constructor(private toDoService: ToDoListService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit() {
     this.getToDoLists();
@@ -76,7 +77,7 @@ export class ListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'Success') {
-        this.getToDoLists();
+        // this.getToDoLists();
       }
     });
   }
@@ -90,5 +91,9 @@ export class ListComponent implements OnInit {
       data: message,
       duration: 3000,
     });
+  }
+
+  seeAllTasks() {
+    this.router.navigate(['tasks']);
   }
 }

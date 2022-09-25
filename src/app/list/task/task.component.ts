@@ -13,7 +13,7 @@ import { AppSnackBarComponent } from '../snack-bar.component';
 export class TaskComponent implements OnChanges {
 
   @Input() listId: number;
-  @Input() todoLists: any;
+  @Input() todoLists: any = [];
   taskList: any = [];
 
   constructor(private toDoService: ToDoListService,
@@ -24,6 +24,8 @@ export class TaskComponent implements OnChanges {
     const changed = changes && changes.listId;
     if (changed) {
       this.getTaskByListId();
+    } else {
+      this.getAllTasks();
     }
   }
 
@@ -36,10 +38,23 @@ export class TaskComponent implements OnChanges {
       });
   }
 
+  getAllTasks() {
+    this.toDoService.getAllTasks().subscribe(resp => {
+      this.taskList = resp;
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
   deleteTask(task) {
     this.toDoService.deleteTask(task.list_id, task.id).subscribe(() => {
       this.openSnackBar('Task deleted successfully');
-      this.getTaskByListId();
+      if (this.listId) {
+        this.getTaskByListId();
+      } else {
+        this.getAllTasks();
+      }
     },
       err => {
         console.log(err);
@@ -49,7 +64,11 @@ export class TaskComponent implements OnChanges {
   updateTask(task, completed) {
     const payload = { name: task.name, completed: completed, listId: task.list_id };
     this.toDoService.updateTask(task.list_id, task.id, payload).subscribe(() => {
-      this.getTaskByListId();
+      if (this.listId) {
+        this.getTaskByListId();
+      } else {
+        this.getAllTasks();
+      }
       this.openSnackBar(`Task marked as ${completed ? 'complete' : 'uncomplete'}`);
     },
       err => {
@@ -71,7 +90,11 @@ export class TaskComponent implements OnChanges {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'Success') {
-        this.getTaskByListId();
+        if (this.listId) {
+          this.getTaskByListId();
+        } else {
+          this.getAllTasks();
+        }
       }
     });
   }
