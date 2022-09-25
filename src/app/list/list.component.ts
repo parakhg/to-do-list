@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToDoListService } from '../to-do-list.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddListDialogComponent } from './add-list-dialog/add-list-dialog.component';
 import { AppSnackBarComponent } from './snack-bar.component';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
-import { TaskComponent } from './task/task.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -50,7 +49,9 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'Success') { this.getToDoLists(); }
+      if (result === 'Success') {
+        this.getToDoLists();
+      }
     });
   }
 
@@ -77,7 +78,7 @@ export class ListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'Success') {
-        // this.getToDoLists();
+        this.getToDoLists();
       }
     });
   }
